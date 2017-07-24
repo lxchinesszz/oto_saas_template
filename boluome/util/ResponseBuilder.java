@@ -2,7 +2,6 @@ package phoenix.jhbank.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import phoenix.jhbank.config.status.JhBankStatus;
 import phoenix.jhbank.config.status.OrderStatus;
 import phoenix.jhbank.config.status.ResponseStatus;
 import org.apache.commons.collections.map.HashedMap;
@@ -102,24 +101,7 @@ public class ResponseBuilder {
     }
 
 
-    /**
-     * 默认返回
-     *
-     * @param
-     * @return {code:0,"message":"处理成功"}
-     */
-    public static String SUCCESSByJh(JhBankStatus jhBankStatus) {
-        return String.format("{\"respCode\":%s,\"respMsg\":\"%s\"}", jhBankStatus.getRespCode(), jhBankStatus.getRespMsg());
-    }
 
-    /**
-     * 失败传入失败状态
-     *
-     * @return
-     */
-    public static String ERRORByJh(JhBankStatus jhBankStatus){
-        return String.format("{\"respCode\":%s,\"respMsg\":\"%s\"}", jhBankStatus.getRespCode(), jhBankStatus.getRespMsg());
-    }
 
 
     /**

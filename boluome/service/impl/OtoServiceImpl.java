@@ -33,7 +33,7 @@ import java.util.Map;
  */
 @Service
 public class OtoServiceImpl implements OtoService {
-    private static final Logger logger = LoggerFactory.getLogger(JhbankServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(OtoServiceImpl.class);
     private static final Gson gson = new Gson();
     private static final String APPCODE = "jhbank";
 
@@ -58,15 +58,10 @@ public class OtoServiceImpl implements OtoService {
     public String sendPay(String orderId, String orderType) throws Exception {
         //订单快照，order_lite_list 订单信息
         SnapOrderDo snapOrderDo = mongoDao.findOneById(orderId, SnapOrderDo.class, orderType);
-        String txnOrderId = snapOrderDo.getId();
-        String txnOrderTime = DataUtils.toTxnOrderTime();
-        String txnOrderBoby = snapOrderDo.getName();
-        String txnAmt = AmountUtils.changeY2F(String.valueOf(snapOrderDo.getPrice()));
-        String userId = snapOrderDo.getCustomerUserId();
-        String preQueryOrderInfo = jhbankConfig.getPayOrderUrl(txnOrderId, txnOrderTime, txnOrderBoby, txnAmt, userId);
-        Map<String, String> responseMap = new LinkedHashMap();
-        responseMap.put("url", preQueryOrderInfo);
-        return ResponseBuilder.SUCCESS(responseMap);
+        //TODO 根据订单快照处理吊起收银台
+
+
+        return ResponseBuilder.SUCCESS(null);
     }
 
     /**
@@ -98,6 +93,8 @@ public class OtoServiceImpl implements OtoService {
         //TODO 将涉及到查询账单信息的 流水号和
 
         //获得redis中订单信息 校验金额
+
+        //TODO 检查APPCODE 是否正常
         String orderSerialNum = txnOrderId + "00";
         Map<String, String> redisOrder = redisDao.getRedisOrderPay(APPCODE, orderSerialNum);
         if (ObjectUtils.isEmpty(redisOrder)) {

@@ -24,12 +24,12 @@ import java.util.Map;
  * @date: 2017/7/20 上午11:22
  */
 @RestController
-public class JhbankController {
+public class OtoRestController {
 
-    private static final Logger logger = LoggerFactory.getLogger(JhbankController.class);
+    private static final Logger logger = LoggerFactory.getLogger(OtoRestController.class);
 
     @Autowired
-    JhbankService jhbankService;
+    OtoService otoService;
 
     /**
      *
@@ -64,17 +64,9 @@ public class JhbankController {
     public String validation(String respCode, String respMsg, String signMethod, String certId, String signAture, String txnOrderId
             , String txnOrderTime, String respTxnSsn, String respTxnTime, String settleAmt, String settleCcyType, String settleDate) {
 
-        try {
-            if (jhbankService.valication(respCode, respMsg, signMethod, certId, signAture, txnOrderId
-                    , txnOrderTime, respTxnSsn, respTxnTime, settleAmt, settleCcyType, settleDate)) {
-                //正确参数
-                return ResponseBuilder.SUCCESSByJh(JhBankStatus.SUCCESS);
-            }
-        } catch (Exception v) {
-            throw new VerificationException("签名验证失败");
-        }
-        //返回参数
-        return ResponseBuilder.ERRORByJh(JhBankStatus.ERROR);
+       //TODO 参数自定义
+
+        return null;
 
     }
 }
