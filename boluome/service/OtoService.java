@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * @date: 2017/7/20 上午11:24
  */
 @Service
-public interface JhbankService {
+public interface OtoService {
     /**
      * https://wt.jhccb.com.cn:6006/ifsp-payweb/prePay?
      * 挂载参数

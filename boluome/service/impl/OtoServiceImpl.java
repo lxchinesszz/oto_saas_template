@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import phoenix.jhbank.config.BoluomeConfig;
-import phoenix.jhbank.config.JhbankConfig;
 import phoenix.jhbank.config.exception.IllegalParamException;
 import phoenix.jhbank.config.status.OrderStatus;
 import phoenix.jhbank.config.status.ResponseStatus;
@@ -18,7 +17,7 @@ import phoenix.jhbank.model.dao.MongoDao;
 import phoenix.jhbank.model.dao.RedisDao;
 import phoenix.jhbank.model.domain.BlmRefundDataDo;
 import phoenix.jhbank.model.domain.SnapOrderDo;
-import phoenix.jhbank.service.JhbankService;
+import phoenix.jhbank.service.OtoService;
 import phoenix.jhbank.util.*;
 
 import java.util.HashMap;
@@ -120,7 +119,7 @@ public class OtoServiceImpl implements OtoService {
                     case 2://支付成功
                         redisDao.upOrderPayPiceAndSta(APPCODE, orderSerialNum, amount, 2, timestamps);
                         //向下分发
-                        flagRes = redisDao.forwardPost(orderSerialNum);
+                        flagRes = redisDao.forwardPost(APPCODE,orderSerialNum);
                         logger.info("订单:{}，支付成功,交易日期：{}", txnOrderId, timestamps);
                         break;
                     case 3://支付失败，支付失败，暂时不处理,向订单中心取消订单

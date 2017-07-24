@@ -2,7 +2,6 @@ package phoenix.jhbank.model.dao;
 
 import com.google.gson.Gson;
 import phoenix.jhbank.config.BoluomeConfig;
-import phoenix.jhbank.config.JhbankConfig;
 import phoenix.jhbank.util.DataUtils;
 import phoenix.jhbank.util.ResponseBuilder;
 import org.apache.commons.httpclient.HttpClient;
@@ -142,9 +141,9 @@ public class RedisDao {
      * @param orderIdNum 订单号
      */
     @SuppressWarnings("deprecation")
-    public boolean forwardPost(String orderIdNum) {
+    public boolean forwardPost(String orderIdNum,String appCode) {
         boolean flag = false;
-        Map<String, String> map = getRedisOrderPay("jhbank", orderIdNum);
+        Map<String, String> map = getRedisOrderPay(appCode, orderIdNum);
         String orderID = map.get("id");
         String orderType = map.get("orderType");
         String channel = map.get("channel");

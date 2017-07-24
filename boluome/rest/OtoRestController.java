@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import phoenix.jhbank.config.exception.IllegalParamException;
 import phoenix.jhbank.config.exception.VerificationException;
-import phoenix.jhbank.config.status.JhBankStatus;
 import phoenix.jhbank.config.status.ResponseStatus;
-import phoenix.jhbank.service.JhbankService;
+import phoenix.jhbank.service.OtoService;
 import phoenix.jhbank.util.ResponseBuilder;
 
 import java.util.Map;
@@ -41,7 +40,7 @@ public class OtoRestController {
         if (StringUtils.isEmpty(orderId) || StringUtils.isEmpty(orderType)) {
             throw new IllegalParamException("OrderId or orderType , cannot be empty");
         }
-        return jhbankService.sendPay(orderId, orderType);
+        return otoService.sendPay(orderId, orderType);
     }
 
 
