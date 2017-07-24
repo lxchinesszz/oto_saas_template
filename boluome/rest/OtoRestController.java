@@ -17,8 +17,7 @@ import phoenix.jhbank.util.ResponseBuilder;
 import java.util.Map;
 
 /**
- * @Package: phoenix.jhbank.rest
- * @Description: 金华银行
+ * @Description: Saas项目统一入口
  * @author: liuxin
  * @date: 2017/7/20 上午11:22
  */
@@ -35,7 +34,7 @@ public class OtoRestController {
      * @return
      * @param-orderId 订单号
      */
-    @RequestMapping(value = "/jhbank/payment/v1", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/{appCode}/payment/v1", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public String pay(String orderId, String orderType) throws Exception {
         if (StringUtils.isEmpty(orderId) || StringUtils.isEmpty(orderType)) {
             throw new IllegalParamException("OrderId or orderType , cannot be empty");
@@ -59,7 +58,7 @@ public class OtoRestController {
      * @param settleDate    清算日期
      * @return
      */
-    @RequestMapping(value = "/zybank/validation/v1", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/{appCode}/validation/v1", method = RequestMethod.POST, consumes = "application/json")
     public String validation(String respCode, String respMsg, String signMethod, String certId, String signAture, String txnOrderId
             , String txnOrderTime, String respTxnSsn, String respTxnTime, String settleAmt, String settleCcyType, String settleDate) {
 
@@ -67,5 +66,28 @@ public class OtoRestController {
 
         return null;
 
+    }
+
+    /**
+     * 退款接口
+     * 内部退款接口
+     * @param request orderId
+     *                orderType
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/refundment/v1", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String refund(@RequestBody RefundDataDto request) throws Exception {
+        String orderId = request.getOrderId();
+        String orderType = request.getOrderType();
+        String price = request.getRefundPrice();
+        String serialNum = request.getRefundSerialNum();
+        if (StringUtils.isEmpty(orderId)) {
+            return ResponseBuilder.ERROR(ResponseStatus.CHECK_ORDERID);
+        }
+        if (StringUtils.isEmpty(orderType)) {
+            return ResponseBuilder.ERROR(ResponseStatus.CHECK_ORDERTYPE);
+        }
+        return otoService.refund(orderId, orderType, price, serialNum);
     }
 }

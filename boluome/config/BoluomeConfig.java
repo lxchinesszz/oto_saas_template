@@ -6,7 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @Package: phoenix.jhbank.config
  * @Description: Boluome配置文件
  * @author: liuxin
  * @date: 2017/7/20 下午2:17

@@ -178,7 +178,7 @@ public class OtoServiceImpl implements OtoService {
         //TODO 准备参数,想供应商发起退款
 
 
-        //支付成功,调用接口通知修改redis状态
+        //退款成功,调用接口通知修改redis状态
         SnapOrderDo snapOrderDo = mongoDao.findOneById(orderId, SnapOrderDo.class, orderType);
         if (ObjectUtils.isEmpty(snapOrderDo)) {
             throw new IllegalParamException("未查询到该订单信息");

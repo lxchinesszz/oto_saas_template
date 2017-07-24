@@ -11,33 +11,12 @@ import org.springframework.stereotype.Service;
 @Service
 public interface OtoService {
     /**
-     * https://wt.jhccb.com.cn:6006/ifsp-payweb/prePay?
-     * 挂载参数
-     * encoding=UTF-8 编码方式
-     * &signMethod=01 签名方式
-     * &sdkAppId=123  sdkid分配的
-     * &certId=1
-     * &signAture=1
-     * &txnType=100
-     * &txnSubType=100000
-     * &aesWay=01
-     * &merId=8201703250000002
-     * &txnOrderTime=20160824155129
-     * &txnOrderBody=小凡皮大衣
-     * &txnAmt=10
-     * &txnCcyType=156
-     * &frontEndUrl=http://www.163.com
-     * &backEndUrl=http://www.163.com
-     * &txnProductId=5555555
-     * &txnUserId=2623139897217990
-     * &txnOrderId=6666666661266666
-     *
      * @param orderId 订单号
      * @return 加密，然后
      * @throws Exception 加密
      *                   <p>
      *                   业务逻辑:
-     *                   根据订单号和类型，从mongo中获取订单信息，拼接吊起收银台地址，返回给前端
+     *                   根据订单号和类型，从mongo中获取订单信息，根据供应商方案，拼接吊起收银台地址，返回给前端
      */
     String sendPay(String orderId, String orderType) throws Exception;
 
@@ -45,8 +24,10 @@ public interface OtoService {
     /**
      * 处理逻辑:
      * 验证签名,核对金额，
-     * 查看redis中订单状态
+     * 查看redis中订单状态，如果为0:待支付 1:未支付处理中 2:已支付
      * 然后修改
+     * <p>
+     * //FIXME 该方法参数，允许自定义，根据供应商返回类型，自行替换
      *
      * @param respCode      响应吗
      * @param respMsg       处理结果描述信息
@@ -68,12 +49,13 @@ public interface OtoService {
     );
 
     /**
+     * 发起退款，退款成功，调用内部退款接口
      *
-     * @param orderId 订单号
+     * @param orderId   订单号
      * @param orderType 订单类型
      * @return
      * @throws Exception
      */
-    String refund(String orderId, String orderType,String price,String serialNum) throws Exception;
+    String refund(String orderId, String orderType, String price, String serialNum) throws Exception;
 
 }
