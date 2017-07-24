@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OtoSaasPayApplication {
+public class OtoSaasApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OtoSaasPayApplication.class, args);
+		SpringApplication.run(OtoSaasApplication.class, args);
 	}
 }
