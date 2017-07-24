@@ -1,0 +1,6 @@
+server:
+  port: 32019
+
+spring:
+  profiles:
+    active: dev
