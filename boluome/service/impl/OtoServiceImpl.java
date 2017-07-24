@@ -32,7 +32,7 @@ import java.util.Map;
  * @date: 2017/7/20 上午11:25
  */
 @Service
-public class JhbankServiceImpl implements JhbankService {
+public class OtoServiceImpl implements OtoService {
     private static final Logger logger = LoggerFactory.getLogger(JhbankServiceImpl.class);
     private static final Gson gson = new Gson();
     private static final String APPCODE = "jhbank";
@@ -44,8 +44,7 @@ public class JhbankServiceImpl implements JhbankService {
     MongoDao mongoDao;
     @Autowired
     RedisDao redisDao;
-    @Autowired
-    JhbankConfig jhbankConfig;
+
 
     /**
      * 发起支付
@@ -153,8 +152,9 @@ public class JhbankServiceImpl implements JhbankService {
 
     /**
      * 根据响应吗获取支付状态
+     * redis中:1.支付处理中 2.支付成功 3.支付失败
      *
-     * @param respCode
+     * @param respCode 服务商返回订单状态
      * @return
      */
     public int getStatus(String respCode) {

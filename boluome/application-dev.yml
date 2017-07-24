@@ -1,7 +1,6 @@
 logging:
-  level:
-    phoenix:
-      jhbank: DEBUG
+  level: DEBUG
+
 
 spring:
   http:
@@ -32,21 +31,3 @@ boluome:
   status: http://192.168.0.5:21003/status
 #  成功通知
   refundUrl: http://192.168.0.5:21009/refund/jhbank/success
-
-
-# 金华银行几个固定的值
-jhbank:
-  encoding: UTF-8
-  signMethod: "01"
-  sdkAppId: 2131231
-  certId: 1213123
-  txnType: 1000
-  txnSubType: 100000
-  aesWay: "01"
-  merId: 8201707120000003
-  merName: 上海酷屏
-  frontEndUrl: http://dev.api.otosaas.com/order/test
-  backEndUrl: http://houtao.com
-  txnCcyType: 156
-  prePay: https://wt.jhccb.com.cn:6006/ifsp-payweb/prePay
-  txnProductId: 5555555
